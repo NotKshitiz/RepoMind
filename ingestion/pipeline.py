@@ -32,6 +32,5 @@ def ingest(github_url:str):
         print(f"Extracted {len(chunks)} chunks")
         store_chunks(repo_name, chunks)
     finally:
-        # shutil.rmtree(temp_dir)
         shutil.rmtree(temp_dir, onerror=handle_remove_readonly)
     return {"repo":repo_name,"chunks":len(chunks)}
