@@ -6,6 +6,13 @@ import shutil
 
 SKIP_DIRS = {".git", "__pycache__", ".venv", "venv", "node_modules", ".idea", ".vscode"}
 
+
+import stat
+
+def handle_remove_readonly(func,path,exc):
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
+    
 def ingest(github_url:str):
     repo_name = github_url.split("/")[-1].replace(".git","")
     temp_dir = clone_repo(github_url, f"./temp/{repo_name}")
@@ -26,5 +33,5 @@ def ingest(github_url:str):
         store_chunks(repo_name, chunks)
     finally:
         # shutil.rmtree(temp_dir)
-        print("Continue")
+        shutil.rmtree(temp_dir, onerror=handle_remove_readonly)
     return {"repo":repo_name,"chunks":len(chunks)}
