@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "http://127.0.0.1:8000"
+API_URL = "https://repomind-production-96d6.up.railway.app"
 
 st.set_page_config(page_title="RepoMind", page_icon="🧠", layout="wide")
 st.title("🧠 RepoMind")
