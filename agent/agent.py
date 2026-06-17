@@ -1,4 +1,3 @@
-from langchain_groq import ChatGroq
 from langgraph.prebuilt import create_react_agent
 from agent.tools import get_tools
 import os 
