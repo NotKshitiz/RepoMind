@@ -20,3 +20,5 @@ PyGithub
 
 streamlit
 requests
+
+groq
