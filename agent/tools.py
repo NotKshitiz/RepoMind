@@ -7,7 +7,7 @@ from github import Github
 load_dotenv()
 
 tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
-def get_tools(repo_name: str, github_token: str = None):
+def get_tools(repo_name: str,repo_full_name: str = None, github_token: str = None):
     gh = Github(github_token) if github_token else None
     @tool
     def code_search(query:str)->str:
@@ -33,7 +33,7 @@ def get_tools(repo_name: str, github_token: str = None):
         
         try:
             # extract username/repo from repo_name stored in closure
-            repo = gh.get_repo(repo_name)  # needs full name like "NotKshitiz/rag-from-scratch"
+            repo = gh.get_repo(repo_full_name or repo_name)  # needs full name like "NotKshitiz/rag-from-scratch"
             
             results = {
                 "open_prs": [{"title": pr.title, "number": pr.number} for pr in repo.get_pulls(state="open")[:5]],
